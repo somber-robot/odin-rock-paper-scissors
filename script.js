@@ -14,6 +14,7 @@ function playRound(humanChoice, cpuChoice){
     humanChoice = humanChoice.toLowerCase();
 
     console.log(`Cpu: ${cpuChoice}`);
+    console.log(`You: ${humanChoice}`);
 
     if (humanChoice === "rock"){
         if (cpuChoice === "paper"){
@@ -48,7 +49,19 @@ function playRound(humanChoice, cpuChoice){
     }
 }
 
-const humanSelection = getHumanChoice();
-const cpuSelection = getCpuChoice();
+function playGame(){
+    for (i = 0; i < 5; i++){
+        let humanSelection = getHumanChoice();
+        let cpuSelection = getCpuChoice();
 
-playRound(humanSelection, cpuSelection);
+        playRound(humanSelection, cpuSelection);
+    }
+
+    console.log(`Final score:\n\tYou - ${humanScore}\n\tCpu - ${cpuScore}`);
+
+    if (humanScore > cpuScore) console.log("YOU WIN THE GAME!");
+    else if (cpuScore > humanScore)  console.log("YOU LOSE THE GAME!");
+    else console.log("IT'S A DRAW!");
+}
+
+playGame()

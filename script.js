@@ -65,7 +65,9 @@ container.addEventListener('click', (event) => {
 
     if (humanScore === 5){
         results.innerText += "\n5 POINTS! YOU WIN THE GAME!";
+        humanScore = cpuScore = 0;
     }else if (cpuScore === 5){
         results.innerText += "\nCPU GOT 5 POINTS! YOU LOSE THE GAME!";
+        humanScore = cpuScore = 0;
     }
 });

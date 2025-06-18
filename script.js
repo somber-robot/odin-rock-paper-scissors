@@ -8,60 +8,64 @@ function getHumanChoice(){
     return choice;
 }
 
-let humanScore = 0, cpuScore = 0;
+const results = document.querySelector(".results");
 
+let humanScore = 0, cpuScore = 0;
 function playRound(humanChoice, cpuChoice){
     humanChoice = humanChoice.toLowerCase();
 
-    console.log(`Cpu: ${cpuChoice}`);
-    console.log(`You: ${humanChoice}`);
+    results.innerText = `\nCpu: ${cpuChoice}\nYou: ${humanChoice}\n\n`;
 
     if (humanChoice === "rock"){
         if (cpuChoice === "paper"){
-            console.log("You lose! Paper beats Rock");
+            results.innerText += "You lose! Paper beats Rock";
             cpuScore++;
         }else if (cpuChoice === "rock"){
-            console.log("You draw!");
+            results.innerText += "You draw!";
         }else{
-            console.log("You win! Rock beats Scissors");
+            results.innerText += "You win! Rock beats Scissors";
             humanScore++;
         }
     }else if (humanChoice === "paper"){
         if (cpuChoice === "paper"){
-            console.log("You draw!");
+            results.innerText += "You draw!";
         }else if (cpuChoice === "rock"){
-            console.log("You win! Paper beats Rock");
+            results.innerText += "You win! Paper beats Rock";
             humanScore++;
         }else{
-            console.log("You lose! Scissors beats Paper");
+            results.innerText += "You lose! Scissors beats Paper";
             cpuScore++;
         }
     }else{
         if (cpuChoice === "paper"){
-            console.log("You win! Scissors beats Paper");
+            results.innerText += "You win! Scissors beats Paper";
             humanScore++;
         }else if (cpuChoice === "rock"){
-            console.log("You lose! Rock beats Scissors");
+            results.innerText += "You lose! Rock beats Scissors";
             cpuScore++;
         }else{
-            console.log("You draw!");
+            results.innerText += "You draw!";
         }
     }
+
+    results.innerText += `\n\nYou: ${humanScore} | Cpu: ${cpuScore}\n`;
 }
 
-function playGame(){
-    for (i = 0; i < 5; i++){
-        let humanSelection = getHumanChoice();
-        let cpuSelection = getCpuChoice();
 
-        playRound(humanSelection, cpuSelection);
+let container = document.querySelector(".buttons");
+
+let rockBtn = document.querySelector("#rock");
+let paperBtn = document.querySelector("#paper");
+let scissorsBtn = document.querySelector("#scissors");
+
+container.addEventListener('click', (event) => {
+    let cpuSelection = getCpuChoice();
+    let button = event.target;
+    playRound(button.id, cpuSelection);
+
+    if (humanScore === 5){
+        results.innerText += "\n5 POINTS! YOU WIN THE GAME!";
+    }else if (cpuScore === 5){
+        results.innerText += "\nCPU GOT 5 POINTS! YOU LOSE THE GAME!";
     }
-
-    console.log(`Final score:\n\tYou - ${humanScore}\n\tCpu - ${cpuScore}`);
-
-    if (humanScore > cpuScore) console.log("YOU WIN THE GAME!");
-    else if (cpuScore > humanScore)  console.log("YOU LOSE THE GAME!");
-    else console.log("IT'S A DRAW!");
-}
-
-playGame()
+});
